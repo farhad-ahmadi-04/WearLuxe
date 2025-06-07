@@ -19,7 +19,7 @@ export const getProduct = async <T>(
     if (!res.ok)
       throw new Error("خطا در برقراری ارتباط, لطفا دوباره امتحان کنید.");
     const data: T = await res.json();
-    if (!data) throw new Error("محصولی یافت نشد.");
+    if (!data || typeof data !== "object") throw new Error("محصولی یافت نشد.");
     return { data, error: "" };
   } catch (error: unknown) {
     let message = "خطایی رخ داده است";

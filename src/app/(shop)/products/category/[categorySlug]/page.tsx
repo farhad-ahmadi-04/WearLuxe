@@ -1,6 +1,7 @@
 import ProductDetailsFilter from "@/app/(shop)/products/category/[categorySlug]/productDetailsFilter";
 import ProductDetailsSort from "@/app/(shop)/products/category/[categorySlug]/productDetailsSort";
 import Container from "@/components/container";
+import PaginationWithLinks from "@/components/pagination";
 import ProductCard from "@/components/products/productCard";
 import { getProduct } from "@/services/getProduct";
 import { IProduct } from "@/types/product";
@@ -16,17 +17,24 @@ export default async function CategoryPage({
   params,
 }: ICategoryPageProps) {
   const url = (await searchParams) as Record<string, string>;
+
   let filters = "";
   for (const i in url) {
     filters += `${i}=${url[i]}&`;
   }
+
+  const dataLength = await getProduct(
+    `http://localhost:4000/products?categoryId=${(await params).categorySlug}`
+  );
+  const totalPages = Math.ceil((dataLength.data as IProduct[]).length / 12);
+  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   const { data, error } = await getProduct(
     `http://localhost:4000/products?categoryId=${
       (
         await params
       ).categorySlug
-    }&${filters}`
+    }&${filters}&_page=1&_limit=12&`
   );
 
   if (error) {
@@ -103,6 +111,22 @@ export default async function CategoryPage({
             </Box>
           ))}
         </Box>
+        {pageNumbers.length > 1 && (
+          <Box
+            sx={{
+              display: "flex",
+              gap: "8px",
+              justifyContent: "center",
+              py: "12px",
+            }}
+          >
+            <PaginationWithLinks
+              count={pageNumbers.length}
+              categorySlug={(await params).categorySlug.toString()}
+              filters={filters}
+            />
+          </Box>
+        )}
       </Box>
     </Container>
   );

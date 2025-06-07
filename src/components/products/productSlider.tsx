@@ -86,7 +86,7 @@ export default function ProductSlider({
           },
         }}
       >
-        {data.map((item: IProduct) => (
+        {Array.isArray(data) && data.map((item: IProduct) => (
           <SwiperSlide key={item.id}>
             <Link href={`products/${item.id}`}>
               <ProductCard item={item} />

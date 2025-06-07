@@ -67,7 +67,7 @@ function ProductActionGroup({ product }: { product: IProduct }) {
             </Box>
 
             {/* add to cart button */}
-            <Button disabled={!view} fullWidth variant="contained" color="primary" onClick={() => handleAddProduct(product)}>
+            <Button disabled={!view || !product.stock} fullWidth variant="contained" color="primary" onClick={() => handleAddProduct(product)}>
                 افزودن به سبد خرید
             </Button>
         </Box>

@@ -53,18 +53,19 @@ function Nav({ className, type }: INav) {
           </ListItemButton>
         </Link>
       </ListItem>
-      {category.map((item) => (
-        <ListItem key={item.id} disablePadding>
-          <Link
-            className={type === "vertical" ? "w-full" : ""}
-            href={`/products/category/${item.id}`}
-          >
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item.title} />
-            </ListItemButton>
-          </Link>
-        </ListItem>
-      ))}
+      {Array.isArray(category) &&
+        category.map((item) => (
+          <ListItem key={item.id} disablePadding>
+            <Link
+              className={type === "vertical" ? "w-full" : ""}
+              href={`/products/category/${item.id}`}
+            >
+              <ListItemButton sx={{ textAlign: "center" }}>
+                <ListItemText primary={item.title} />
+              </ListItemButton>
+            </Link>
+          </ListItem>
+        ))}
       <ListItem disablePadding>
         <Link className={type === "vertical" ? "w-full" : ""} href={`/aboutus`}>
           <ListItemButton sx={{ textAlign: "center" }}>

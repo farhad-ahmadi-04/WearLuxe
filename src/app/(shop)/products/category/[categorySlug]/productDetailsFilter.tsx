@@ -29,9 +29,22 @@ export default function ProductDetailsFilter({
   const isMouseDownRef = useRef(false);
   const maxPrice = 2000000;
 
-  const [value, setValue] = useState<number[]>([0, maxPrice]);
-  const [openFilterDrawer, setOpenFilterDrawer] = useState(false);
   const searchParams = useSearchParams();
+  const getInitialValue = () => {
+    const priceGte = searchParams.get("price_gte");
+    const priceLte = searchParams.get("price_lte");
+    if (priceGte !== null && priceLte !== null) {
+      const gte = maxPrice - Number(priceLte);
+      const lte = maxPrice - Number(priceGte);
+      if (!isNaN(lte) && !isNaN(gte)) {
+        return [gte, lte];
+      }
+    }
+    return [0, maxPrice];
+  };
+  const [value, setValue] = useState<number[]>(getInitialValue());
+  const [openFilterDrawer, setOpenFilterDrawer] = useState(false);
+
   const pathname = usePathname();
   const router = useRouter();
   const [didMount, setDidMount] = useState(false);
@@ -176,26 +189,33 @@ export default function ProductDetailsFilter({
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              {filters.map(({ id, name }) => (
-                <FormGroup key={id}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        onChange={(e) => setValidationCheck(e.target.checked)}
-                      />
-                    }
-                    label={name}
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row-reverse",
-                      justifyContent: "space-between",
-                    }}
-                    onClick={() => {
-                      setHandleFilterChange(id);
-                    }}
-                  />
-                </FormGroup>
-              ))}
+              {filters.map(({ id, name }) => {
+                const isChecked =
+                  searchParams.get("color") ===
+                  id.replace("&", "").split("=")[1];
+
+                return (
+                  <FormGroup key={id}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={isChecked}
+                          onChange={(e) => setValidationCheck(e.target.checked)}
+                        />
+                      }
+                      label={name}
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row-reverse",
+                        justifyContent: "space-between",
+                      }}
+                      onClick={() => {
+                        setHandleFilterChange(id);
+                      }}
+                    />
+                  </FormGroup>
+                );
+              })}
             </AccordionDetails>
           </Accordion>
         ))}
@@ -208,46 +228,64 @@ export default function ProductDetailsFilter({
           </AccordionSummary>
           <AccordionDetails>
             {slugValid
-              ? sizeNumber.filters.map(({ id, name }) => (
-                  <FormGroup key={id}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          onChange={(e) => setValidationCheck(e.target.checked)}
-                        />
-                      }
-                      label={name}
-                      sx={{
-                        display: "flex",
-                        flexDirection: "row-reverse",
-                        justifyContent: "space-between",
-                      }}
-                      onClick={() => {
-                        setHandleFilterChange(id);
-                      }}
-                    />
-                  </FormGroup>
-                ))
-              : sizes.filters.map(({ id, name }) => (
-                  <FormGroup key={id}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          onChange={(e) => setValidationCheck(e.target.checked)}
-                        />
-                      }
-                      label={name}
-                      sx={{
-                        display: "flex",
-                        flexDirection: "row-reverse",
-                        justifyContent: "space-between",
-                      }}
-                      onClick={() => {
-                        setHandleFilterChange(id);
-                      }}
-                    />
-                  </FormGroup>
-                ))}
+              ? Array.isArray(sizeNumber.filters) &&
+                sizeNumber.filters.map(({ id, name }) => {
+                  const isChecked =
+                    searchParams.get("size") ===
+                    id.replace("&", "").split("=")[1];
+                  return (
+                    <FormGroup key={id}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={isChecked}
+                            onChange={(e) =>
+                              setValidationCheck(e.target.checked)
+                            }
+                          />
+                        }
+                        label={name}
+                        sx={{
+                          display: "flex",
+                          flexDirection: "row-reverse",
+                          justifyContent: "space-between",
+                        }}
+                        onClick={() => {
+                          setHandleFilterChange(id);
+                        }}
+                      />
+                    </FormGroup>
+                  );
+                })
+              : Array.isArray(sizes.filters) &&
+                sizes.filters.map(({ id, name }) => {
+                  const isChecked =
+                    searchParams.get("size") ===
+                    id.replace("&", "").split("=")[1];
+                  return (
+                    <FormGroup key={id}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={isChecked}
+                            onChange={(e) =>
+                              setValidationCheck(e.target.checked)
+                            }
+                          />
+                        }
+                        label={name}
+                        sx={{
+                          display: "flex",
+                          flexDirection: "row-reverse",
+                          justifyContent: "space-between",
+                        }}
+                        onClick={() => {
+                          setHandleFilterChange(id);
+                        }}
+                      />
+                    </FormGroup>
+                  );
+                })}
           </AccordionDetails>
         </Accordion>
       </Box>
@@ -342,26 +380,35 @@ export default function ProductDetailsFilter({
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                {filters.map(({ id, name }) => (
-                  <FormGroup key={id}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          onChange={(e) => setValidationCheck(e.target.checked)}
-                        />
-                      }
-                      label={name}
-                      sx={{
-                        display: "flex",
-                        flexDirection: "row-reverse",
-                        justifyContent: "space-between",
-                      }}
-                      onClick={() => {
-                        setHandleFilterChange(id);
-                      }}
-                    />
-                  </FormGroup>
-                ))}
+                {filters.map(({ id, name }) => {
+                  const isChecked =
+                    searchParams.get("color") ===
+                    id.replace("&", "").split("=")[1];
+
+                  return (
+                    <FormGroup key={id}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={isChecked}
+                            onChange={(e) =>
+                              setValidationCheck(e.target.checked)
+                            }
+                          />
+                        }
+                        label={name}
+                        sx={{
+                          display: "flex",
+                          flexDirection: "row-reverse",
+                          justifyContent: "space-between",
+                        }}
+                        onClick={() => {
+                          setHandleFilterChange(id);
+                        }}
+                      />
+                    </FormGroup>
+                  );
+                })}
               </AccordionDetails>
             </Accordion>
           ))}
@@ -377,50 +424,62 @@ export default function ProductDetailsFilter({
             </AccordionSummary>
             <AccordionDetails>
               {slugValid
-                ? sizeNumber.filters.map(({ id, name }) => (
-                    <FormGroup key={id}>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            onChange={(e) =>
-                              setValidationCheck(e.target.checked)
-                            }
-                          />
-                        }
-                        label={name}
-                        sx={{
-                          display: "flex",
-                          flexDirection: "row-reverse",
-                          justifyContent: "space-between",
-                        }}
-                        onClick={() => {
-                          setHandleFilterChange(id);
-                        }}
-                      />
-                    </FormGroup>
-                  ))
-                : sizes.filters.map(({ id, name }) => (
-                    <FormGroup key={id}>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            onChange={(e) =>
-                              setValidationCheck(e.target.checked)
-                            }
-                          />
-                        }
-                        label={name}
-                        sx={{
-                          display: "flex",
-                          flexDirection: "row-reverse",
-                          justifyContent: "space-between",
-                        }}
-                        onClick={() => {
-                          setHandleFilterChange(id);
-                        }}
-                      />
-                    </FormGroup>
-                  ))}
+                ? sizeNumber.filters.map(({ id, name }) => {
+                    const isChecked =
+                      searchParams.get("size") ===
+                      id.replace("&", "").split("=")[1];
+                    return (
+                      <FormGroup key={id}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={isChecked}
+                              onChange={(e) =>
+                                setValidationCheck(e.target.checked)
+                              }
+                            />
+                          }
+                          label={name}
+                          sx={{
+                            display: "flex",
+                            flexDirection: "row-reverse",
+                            justifyContent: "space-between",
+                          }}
+                          onClick={() => {
+                            setHandleFilterChange(id);
+                          }}
+                        />
+                      </FormGroup>
+                    );
+                  })
+                : sizes.filters.map(({ id, name }) => {
+                    const isChecked =
+                      searchParams.get("size") ===
+                      id.replace("&", "").split("=")[1];
+                    return (
+                      <FormGroup key={id}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={isChecked}
+                              onChange={(e) =>
+                                setValidationCheck(e.target.checked)
+                              }
+                            />
+                          }
+                          label={name}
+                          sx={{
+                            display: "flex",
+                            flexDirection: "row-reverse",
+                            justifyContent: "space-between",
+                          }}
+                          onClick={() => {
+                            setHandleFilterChange(id);
+                          }}
+                        />
+                      </FormGroup>
+                    );
+                  })}
             </AccordionDetails>
           </Accordion>
         </Container>

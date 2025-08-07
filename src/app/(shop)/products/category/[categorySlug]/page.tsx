@@ -24,13 +24,13 @@ export default async function CategoryPage({
   }
 
   const dataLength = await getProduct(
-    `http://localhost:4000/products?categoryId=${(await params).categorySlug}`
+    `/products?categoryId=${(await params).categorySlug}`
   );
   const totalPages = Math.ceil((dataLength.data as IProduct[]).length / 12);
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   const { data, error } = await getProduct(
-    `http://localhost:4000/products?categoryId=${
+    `/products?categoryId=${
       (
         await params
       ).categorySlug

@@ -13,9 +13,7 @@ import Link from "next/link";
 import Container from "./container";
 
 async function Footer() {
-  const { data } = await getProduct<ICategory[]>(
-    "http://localhost:4000/categories"
-  );
+  const { data } = await getProduct<ICategory[]>("/categories");
 
   return (
     <Box component="footer" sx={{ bgcolor: "primary.main", py: 4 }}>

@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
     <html dir="rtl" lang="en">
       <head>
-        <title>WEARLUXE</title>
+        <title>WEARLUXE </title>
       </head>
       <body className="!bg-neutral-50">
         <StoreProvider>

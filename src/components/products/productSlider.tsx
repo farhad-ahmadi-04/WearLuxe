@@ -21,6 +21,9 @@ export default function ProductSlider({
   className,
   sx,
 }: ProductSliderProps) {
+  if (!data || data.length === 0)
+    return <p style={{ textAlign: "center" }}>محصولی یافت نشد.</p>;
+
   return (
     <Container>
       <Box
@@ -86,13 +89,14 @@ export default function ProductSlider({
           },
         }}
       >
-        {Array.isArray(data) && data.map((item: IProduct) => (
-          <SwiperSlide key={item.id}>
-            <Link href={`products/${item.id}`}>
-              <ProductCard item={item} />
-            </Link>
-          </SwiperSlide>
-        ))}
+        {Array.isArray(data) &&
+          data.map((item: IProduct) => (
+            <SwiperSlide key={item.id}>
+              <Link href={`products/${item.id}`}>
+                <ProductCard item={item} />
+              </Link>
+            </SwiperSlide>
+          ))}
       </Swiper>
     </Container>
   );

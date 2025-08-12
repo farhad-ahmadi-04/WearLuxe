@@ -84,7 +84,7 @@ function ProductActionGroup({ product }: { product: IProduct }) {
 
       {/* add to cart button */}
       <Button
-        disabled={!view || !product.stock}
+        disabled={!view}
         fullWidth
         variant="contained"
         color="primary"

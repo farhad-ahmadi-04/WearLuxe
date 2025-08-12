@@ -42,7 +42,7 @@ function HeroSection() {
               }}>
                 <Box sx={{ padding: 4, textAlign: "center" }}>
                   <Typography fontSize={{ xs: 20, md: 24 }}>خوش پوشی شایسته شماست</Typography>
-                  <Typography variant="h6" fontSize={{ xs: 24, md: 32 }}>WEAELUXE</Typography>
+                  <Typography variant="h6" fontSize={{ xs: 24, md: 32 }}>WEARLUXE</Typography>
                 </Box>
               </Box>
             </SwiperSlide>
@@ -58,7 +58,7 @@ function HeroSection() {
               }}>
                 <Box sx={{ padding: 4, textAlign: "center" }}>
                   <Typography fontSize={{ xs: 20, md: 24 }}>خوش پوشی شایسته شماست</Typography>
-                  <Typography variant="h6" fontSize={{ xs: 24, md: 32 }}>WEAELUXE</Typography>
+                  <Typography variant="h6" fontSize={{ xs: 24, md: 32 }}>WEARLUXE</Typography>
                 </Box>
               </Box>
             </SwiperSlide>
@@ -84,7 +84,7 @@ function HeroSection() {
           }}>
             <Box sx={{ padding: 4, textAlign: "center" }}>
               <Typography fontSize={{ xs: 16, md: 18 }}>تخفیف های شگفت انگیز</Typography>
-              <Typography variant="h6" fontSize={{ xs: 20, md: 26 }}>WEAELUXE</Typography>
+              <Typography variant="h6" fontSize={{ xs: 20, md: 26 }}>WEARLUXE</Typography>
             </Box>
           </Box>
           <Box width={"100%"} height={"100%"} sx={{
@@ -98,7 +98,7 @@ function HeroSection() {
           }}>
             <Box sx={{ padding: 4, textAlign: "center" }}>
               <Typography fontSize={{ xs: 16, md: 18 }}>قیمت هایی مناسب</Typography>
-              <Typography variant="h6" fontSize={{ xs: 20, md: 26 }}>WEAELUXE</Typography>
+              <Typography variant="h6" fontSize={{ xs: 20, md: 26 }}>WEARLUXE</Typography>
             </Box>
           </Box>
         </Grid>
